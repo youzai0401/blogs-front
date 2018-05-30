@@ -1,16 +1,5 @@
 <template>
   <div>
-    <div>
-      <a href="/">首页</a>
-      <br>
-      <a href="/user">user</a>
-      <br>
-      <a href="/user/subuser">subuser</a>
-      <br>
-      <a href="/user/subuser/10">subuserid</a>
-      <br>
-      <a href="/test">anotherTest</a>
-    </div>
     <nuxt/>
   </div>
 </template>
