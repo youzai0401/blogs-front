@@ -1,52 +1,48 @@
 <template>
-  <div>
-    <nuxt/>
-  </div>
+    <div class="main">
+        <div class="header-container">
+            <app-header/>
+        </div>
+        <div class="container">
+            <div class="sidebar-container">
+                <app-sidebar/>
+            </div>
+            <div class="main-container">
+                <nuxt/>
+            </div>
+        </div>
+    </div>
 </template>
-
-<style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+<script>
+    import appSidebar from '~/components/appSidebar.vue';
+    import appHeader from '~/components/appHeader.vue';
+    export default {
+        components: {
+            appSidebar,
+            appHeader
+        }
+    };
+</script>
+<style scoped lang="less" type="text/less">
+    .main {
+        width: 100%;
+        min-height: 100vh;
+        background-color: #f4f5f5;
+        .header-container {
+            margin-bottom: 20px;
+            height: 50px;
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            .sidebar-container {}
+            .main-container {
+                margin-left: 240px;
+                padding: 1px 0;
+            }
+        }
+    }
 </style>

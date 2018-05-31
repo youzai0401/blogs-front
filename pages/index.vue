@@ -1,47 +1,24 @@
 <template>
-    <section class="container">
-        <div>
-            <!--<app-logo/>-->
-            <!--<testq/>-->
-            <h1 class="title">
-                nuxt-blog-node
-            </h1>
-            <h2 class="subtitle">
-                blog-ssr
-                blog-ssr
-                blog-ssr
-                blog-ssr
-                blog-ssr
-            </h2>
-            <div class="links">
-                <a
-                    href="https://nuxtjs.org/"
-                    target="_blank"
-                    class="button--green">Documentation</a>
-                <a
-                    href="https://github.com/nuxt/nuxt.js"
-                    target="_blank"
-                    class="button--grey">GitHub</a>
-            </div>
-            {{name}}
-            {{list[0]}}
-            {{res.data.code}}
-            {{res.data.message}}
-            {{res.data}}
-            {{res}}
+    <div class="article-container">
+        <div class="article" v-for="item in articleList" :key="item.id" @click="toArticleDetail(item.id)">
+            <h4 class="title">{{item.title}}</h4>
+            <p class="description">{{item.description}}</p>
+            <p class="tag"><span v-for="(tagItem, tagIndex) in item.tag" :key="tagIndex" @click.stop="handelTag(tagItem.id)">{{tagItem.name}}</span></p>
+            <p class="category" @click.stop="handelCategory(item.category[0].id)">{{item.category[0].name}}</p>
+            <p class="update-time">{{item.updateTime}}</p>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
-    import AppLogo from '~/components/AppLogo.vue';
-    import testq from '~/components/testq.vue';
-    import server from '../api/tag/index';
-
+    import articleServer from '../api/article/index';
+    import tagServer from '../api/tag/index';
+    import categoryServer from '../api/category/index';
+    import {fetch} from '../plugins/request';
+    import axios from 'axios';
+    import {formatTime, tagFormatter, categoryFormatter} from '../plugins/commonUtil';
     export default {
-        components: {
-            AppLogo, testq
-        },
+        components: {},
         data() {
             return {
                 list: [1, 2, 3]
@@ -49,15 +26,51 @@
         },
         transition: 'test',
         async asyncData(context) {
-            // called every time before loading the component
-            console.log(1111111111111111111111);
-            const res = await server.tagList();
-            console.log(res.data);
-            return {name: 'World', res: res.data};
+            const requestArray = [
+                articleServer.articleList(),
+                tagServer.tagList(),
+                categoryServer.categoryList()
+            ];
+            const resArr = await axios.all(requestArray).catch(() => {
+//                this.pageLoading = false;
+            });
+            const articleList = resArr[0].data.data;
+            const tagList = resArr[1].data.data;
+            const categoryList = resArr[2].data.data;
+            for (let i = 0; i < articleList.length; i++) {
+                articleList[i].tag = tagFormatter(articleList[i].tag, tagList);
+                articleList[i].category = categoryFormatter(articleList[i].category, categoryList);
+                articleList[i].updateTime = formatTime(articleList[i].updateTime, 'yyyy-MM-dd hh:mm:ss');
+            }
+            return {articleList, tagList, categoryList};
         },
         fetch() {
             // The fetch method is used to fill the store before rendering the page
             // vuex填充数据状态，管理数据用
+        },
+        mounted() {},
+        methods: {
+            toArticleDetail(id) {
+                this.$router.push(`/article-detail?id=${id}`);
+            },
+            tagFormatter(tag, tagList) {
+                const data = [];
+                const tagArr = tag.split(',');
+                for (let j = 0; j < tagArr.length; j++) {
+                    for (let i = 0; i < tagList.length; i++) {
+                        if (tagList[i].id === Number(tagArr[j])) {
+                            data.push(tagList[i]);
+                        }
+                    }
+                }
+                return data;
+            },
+            handelTag(id) {
+                console.log(id);
+            },
+            handelCategory(id) {
+                console.log(id);
+            }
         }
 //  head () {
 //    // Set Meta Tags for this Page
@@ -66,33 +79,16 @@
     };
 </script>
 
-<style>
-    .container {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .title {
-        font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-        display: block;
-        font-weight: 300;
-        font-size: 100px;
-        color: #35495e;
-        letter-spacing: 1px;
-    }
-
-    .subtitle {
-        font-weight: 300;
-        font-size: 42px;
-        color: #526488;
-        word-spacing: 5px;
-        padding-bottom: 15px;
-    }
-
-    .links {
-        padding-top: 15px;
+<style scoped lang="less" type="text/less">
+    .article-container {
+        padding: 10px 2rem;
+        background-color: #ffffff;
+        border-radius: 4px;
+        .article {
+            margin: 10px 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+            cursor: pointer;
+        }
     }
 </style>

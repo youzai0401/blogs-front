@@ -1,26 +1,33 @@
 {
-  "name": "blogs-front",
-  "version": "1.0.0",
-  "description": "nuxt-ssr",
-  "author": "zhouzhiwen <825142772@qq.com>",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
-  },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "nuxt": "^1.0.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0"
-  }
+    "name": "blogs-front",
+    "version": "1.0.0",
+    "description": "nuxt-ssr",
+    "author": "zhouzhiwen <825142772@qq.com>",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start",
+        "generate": "nuxt generate"
+    },
+    "dependencies": {
+        "axios": "^0.18.0",
+        "nuxt": "^1.0.0",
+        "postcss-import": "^11.1.0",
+        "postcss-loader": "^2.1.5",
+        "postcss-url": "^7.3.2"
+    },
+    "devDependencies": {
+        "@nuxtjs/axios": "^5.3.1",
+        "@nuxtjs/proxy": "^1.2.4",
+        "babel-eslint": "^8.2.1",
+        "eslint": "^4.15.0",
+        "eslint-friendly-formatter": "^3.0.0",
+        "eslint-loader": "^1.7.1",
+        "eslint-plugin-vue": "^4.0.0",
+        "less": "^3.0.4",
+        "less-loader": "^4.1.0",
+        "vue-loader": "^13.3.0",
+        "vue-style-loader": "^3.0.1"
+    }
 }

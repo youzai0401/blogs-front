@@ -66,10 +66,11 @@ export function fetch(options = {}) {
         cancelToken: new CancelToken(c => {
             // 一个执行器函数接收一个取消函数作为参数
             cancels.push(c);
-        }),
-        // todo 根据环境变量切换访问地址
-        baseURL: 'http://140.143.66.26:3000'
+        })
     };
+    if (process.server) {
+        config.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}`;
+    }
     if (isTransformRequest) {
         config.transformRequest = [data => {
             // 这里可以在发送请求之前对请求数据做处理，比如form-data格式化等，这里可以使用开头引入的Qs（这个模块在安装axios的时候就已经安装了，不需要另外安装）
@@ -88,8 +89,8 @@ export function fetch(options = {}) {
         setOptions(instance);
     }
     // 添加同时发起请求函数 begin
-    instance.all = axios.all;
-    instance.spread = axios.spread;
+    // instance.all = axios.all;
+    // instance.spread = axios.spread;
     // 添加同时发起请求函数 end
 
     return instance;

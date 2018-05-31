@@ -10,3 +10,7 @@
 .test-enter, .test-leave-active {
   opacity: 0;
 }
+.article-content pre {
+    border: 1px solid red;
+    border-radius: 2px;
+}
