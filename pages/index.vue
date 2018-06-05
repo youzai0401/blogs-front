@@ -31,8 +31,10 @@
                 tagServer.tagList(),
                 categoryServer.categoryList()
             ];
-            const resArr = await axios.all(requestArray).catch(() => {
+            const resArr = await axios.all(requestArray).catch(err => {
 //                this.pageLoading = false;
+                console.log('213132132213321132');
+                console.log(err);
             });
             const articleList = resArr[0].data.data;
             const tagList = resArr[1].data.data;

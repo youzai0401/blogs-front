@@ -38,7 +38,10 @@
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
-            .sidebar-container {}
+            .sidebar-container {
+                position: absolute;
+                top: 0;
+            }
             .main-container {
                 margin-left: 240px;
                 padding: 1px 0;
