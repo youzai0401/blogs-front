@@ -3,7 +3,7 @@ module.exports = {
      ** Headers of the page
      */
     head: {
-        title: 'blogs-front',
+        title: 'wen-个人博客',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -12,7 +12,7 @@ module.exports = {
         // todo 如何引入外部css连接（引入了没有生效）
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-            {type: 'text/css', href: 'https://at.alicdn.com/t/font_689030_3gzynmlrniad1jor.css'}
+            {type: 'text/css', href: 'https://at.alicdn.com/t/font_689030_9xme0vwfbog.css'}
         ]
     },
     /*
@@ -29,13 +29,14 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/proxy'
     ],
+    // TODO 之后要尝试nginx代理
     axios: {
         prefix: '/blog/',
         proxy: true
     },
     proxy: {
         '/blog/': {
-            target: 'http://localhost:4000' // 你的接口服务器地址
+            target: 'http://140.143.66.26:4000' // 你的接口服务器地址
         }
     },
     // todo 怎么切换启动端口

@@ -1,13 +1,23 @@
 <template>
     <div class="article-container">
         <h1 class="title">{{articleDetail.title}}</h1>
-        <div class="markdown-body" v-html="articleDetail.content_html"></div>
+        <div class="markdown-body article-content" v-html="articleDetail.content_html"></div>
         <p class="description">{{articleDetail.description}}</p>
         <!--<p class="tag">{{articleDetail.tag}}</p>-->
         <!--<p class="category">{{articleDetail.category}}</p>-->
-        <p class="tag"><span v-for="(tagItem, tagIndex) in articleDetail.tag" :key="tagIndex" @click.stop="handelTag(tagItem.id)">{{tagItem.name}}</span></p>
-        <p class="category" @click.stop="handelCategory(articleDetail.category.id)">{{articleDetail.category.name}}</p>
-        <p class="click-count">{{articleDetail.ckick_count}}</p>
+        <p class="category-tag">
+            <i class="iconfont icon-category"></i>
+            <span class="category" @click.stop="handelCategory(articleDetail.category[0].id)">
+                    {{articleDetail.category[0].name}}
+                </span>
+            <i class="iconfont icon-tag"></i>
+            <span class="tag" v-for="(tagItem, tagIndex) in articleDetail.tag" :key="tagIndex"
+                  @click.stop="handelTag(tagItem.id)">{{tagItem.name}}</span>
+        </p>
+        <p class="update-message">
+            <span><i class="iconfont icon-yuedu1"></i>{{articleDetail.click_count}}</span>
+            <span><i class="iconfont icon-shijian-tianchong"></i>{{articleDetail.create_time}}</span>
+        </p>
     </div>
 </template>
 
@@ -38,12 +48,12 @@
 //                this.pageLoading = false;
             });
             const articleDetail = resArr[0].data.data;
-            const tagList = resArr[1].data.data;
-            const categoryList = resArr[2].data.data;
+            const tagList = resArr[1].data.data.content;
+            const categoryList = resArr[2].data.data.content;
             for (let i = 0; i < articleDetail.length; i++) {
                 articleDetail[i].tag = tagFormatter(articleDetail[i].tag, tagList);
                 articleDetail[i].category = categoryFormatter(articleDetail[i].category, categoryList);
-                articleDetail[i].updateTime = formatTime(articleDetail[i].updateTime, 'yyyy-MM-dd hh:mm:ss');
+                articleDetail[i].create_time = formatTime(articleDetail[i].create_time, 'yyyy-MM-dd hh:mm:ss');
             }
             return {articleDetail: articleDetail[0], tagList, categoryList};
         },
@@ -53,7 +63,8 @@
         },
         async mounted() {
 //            this.articleDetail = await this.getArticleDetail();
-            this.addArticleCkick_count(this.id);
+            const id = this.$route.query.id;
+            this.addArticleCkick_count(id);
         },
         methods: {
             toArticleDetail(id) {
@@ -71,9 +82,21 @@
             },
             handelTag(id) {
                 console.log(id);
+                this.$router.push({
+                    path: '/',
+                    query: {
+                        tagId: id
+                    }
+                });
             },
             handelCategory(id) {
                 console.log(id);
+                this.$router.push({
+                    path: '/',
+                    query: {
+                        categoryId: id
+                    }
+                });
             }
         }
 //  head () {
@@ -85,23 +108,57 @@
 
 <style scoped lang="less" type="text/less">
     .article-container {
+        font-size: 12px;
         padding: 10px 2rem;
         background-color: #ffffff;
         border-radius: 4px;
+        .article-content {
+            background-color: #fafafa;
+            padding: 20px 10px;
+            border-radius: 4px;
+        }
         .title {
             text-align: center;
         }
         .description {
             font-size: 14px;
         }
-        .tag {
-            font-size: 14px;
-        }
-        .category {
-            font-size: 14px;
+        .category-tag {
+            i {
+                font-size: 12px;
+                margin-right: 5px;
+            }
+            .category {
+                margin-right: 30px;
+                cursor: pointer;
+            }
+            .tag {
+                background-color: #777;
+                display: inline;
+                padding: .2em .6em .3em;
+                margin-right: 10px;
+                font-size: 75%;
+                font-weight: 700;
+                line-height: 1;
+                color: #fff;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: baseline;
+                border-radius: .25em;
+                cursor: pointer;
+            }
         }
         .click-count {
             font-size: 12px;
+        }
+        .update-message {
+            i {
+                font-size: 12px;
+                margin-right: 5px;
+            }
+            span {
+                margin-right: 20px;
+            }
         }
     }
 </style>

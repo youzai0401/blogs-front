@@ -29,7 +29,7 @@
 //            console.log(1111111111111111111111);
             const res = await server.tagList();
 //            console.log(res.data);
-            return {name: 'World', res: res.data};
+            return {name: 'World', res: res.data.data.content};
         },
         mounted() {
             // wer

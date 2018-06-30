@@ -4,11 +4,11 @@
             <app-header/>
         </div>
         <div class="container">
-            <div class="sidebar-container">
-                <app-sidebar/>
-            </div>
             <div class="main-container">
                 <nuxt/>
+            </div>
+            <div class="sidebar-container">
+                <app-sidebar/>
             </div>
         </div>
     </div>

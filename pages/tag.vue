@@ -22,8 +22,8 @@
             // called every time before loading the component
 //            console.log(1111111111111111111111);
             const res = await tagServer.tagList();
-            console.log(res.data);
-            return {tagList: res.data.data};
+//            console.log(res.data);
+            return {tagList: res.data.data.content};
         },
         fetch() {
             // The fetch method is used to fill the store before rendering the page
@@ -31,7 +31,12 @@
         },
         methods: {
             toTag(id) {
-                console.log(id);
+                this.$router.push({
+                    path: '/',
+                    query: {
+                        tagId: id
+                    }
+                });
             }
         }
 //  head () {

@@ -42,10 +42,10 @@ export function tagFormatter(tag, tagList) {
     }
     return data;
 }
-export function categoryFormatter(category, categoryList) {
+export function categoryFormatter(categoryId, categoryList) {
     const data = [];
     for (let i = 0; i < categoryList.length; i++) {
-        if (categoryList[i].id === category) {
+        if (categoryList[i].id === categoryId) {
             data.push(categoryList[i]);
         }
     }

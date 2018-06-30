@@ -24,7 +24,7 @@
 //            console.log(1111111111111111111111);
             const res = await categoryServer.categoryList();
 //            console.log(res.data);
-            return {categoryList: res.data.data};
+            return {categoryList: res.data.data.content};
         },
         fetch() {
             // The fetch method is used to fill the store before rendering the page
@@ -33,6 +33,12 @@
         methods: {
             toCategory(id) {
                 console.log(id);
+                this.$router.push({
+                    path: '/',
+                    query: {
+                        categoryId: id
+                    }
+                });
             }
         }
 //  head () {

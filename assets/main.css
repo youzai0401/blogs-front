@@ -14,3 +14,10 @@
     border: 1px solid red;
     border-radius: 2px;
 }
+.overflow-ellipsis-3{
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

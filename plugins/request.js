@@ -68,6 +68,7 @@ export function fetch(options = {}) {
             cancels.push(c);
         })
     };
+    // todo 嘛意思？
     if (process.server) {
         config.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3333}`;
     }
@@ -89,8 +90,8 @@ export function fetch(options = {}) {
         setOptions(instance);
     }
     // 添加同时发起请求函数 begin
-    // instance.all = axios.all;
-    // instance.spread = axios.spread;
+    instance.all = axios.all;
+    instance.spread = axios.spread;
     // 添加同时发起请求函数 end
 
     return instance;
