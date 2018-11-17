@@ -1,3 +1,15 @@
+
+let serverAddress = '';
+const env = process.env ? process.env.NODE_ENV : 'dev';
+console.log('当前运行环境为：', env);
+if (env === 'dev') {
+    serverAddress = 'http://localhost:8081';
+} else if (env === 'test') {
+    serverAddress = 'http://140.143.66.26:4000';
+} else if (env === 'production') {
+    serverAddress = 'http://47.98.249.139:8081';
+}
+
 module.exports = {
     /*
      ** Headers of the page
@@ -36,7 +48,7 @@ module.exports = {
     },
     proxy: {
         '/blog/': {
-            target: 'http://140.143.66.26:4000' // 你的接口服务器地址
+            target: serverAddress // 你的接口服务器地址
         }
     },
     // todo 怎么切换启动端口
