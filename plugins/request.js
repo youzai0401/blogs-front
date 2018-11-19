@@ -70,7 +70,7 @@ export function fetch(options = {}) {
     };
     // todo 嘛意思？
     if (process.server) {
-        config.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3333}`;
+        config.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 8082}`;
     }
     if (isTransformRequest) {
         config.transformRequest = [data => {
